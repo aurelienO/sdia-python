@@ -12,12 +12,18 @@ def test_raise_assertion_error_when_points_is_not_an_array():
         raise AssertionError()
 
 
-def test_raise_assertion_error_when_points_is_not_of_good_dimension():
-    with pytest.raises(AssertionError):
-        # call_something_that_raises_TypeError()
-        L = np.array([1, 2, 3])
+def test_raise_Exception_when_bounds_are_incorrect():
+    with pytest.raises(Exception):
+        L = np.array([[2, 1], [3, 4]])
         box = BoxWindow(L)
-        raise AssertionError()
+        raise Exception
+
+
+def test_raise_Exception_when_dimension_is_incorrect():
+    with pytest.raises(Exception):
+        L = np.array([[1, 2, 4], [3, 4, 5]])
+        box = BoxWindow(L)
+        raise Exception
 
 
 @pytest.mark.parametrize(

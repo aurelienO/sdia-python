@@ -14,9 +14,11 @@ class BoxWindow:
                                 It must be of dimension N * 2
         """
         assert isinstance(bounds, np.ndarray)
-        # * use .shapes
-        assert bounds.shape[1] == 2
-        assert np.all(np.diff(bounds) >= 0)
+        # * use .shapes -- ndim : nombre de dimensions
+        if bounds.shape[1] != 2:
+            raise Exception("The dimension is not correct")
+        if not np.all(np.diff(bounds) >= 0):
+            raise Exception("The bounds are not correct")
         self.bounds = bounds
 
     def __str__(self):
@@ -76,13 +78,7 @@ class BoxWindow:
         Returns:
             int: the volume of the box
         """
-        # * exploit numpy vectors, use - or np.diff, and np.prod
-        volume = 1
-        # * consider for a, b in self.bounds
-        for k in range(0, len(self.bounds)):
-            # ? why abs, isn't b > a, isn't it tested ?
-            volume *= np.abs(self.bounds[k][1] - self.bounds[k][0])
-        return volume
+        return np.prod(np.diff(self.bounds))
 
     def indicator_function(self, point):
         """Returns True if the point beyonds to the box
