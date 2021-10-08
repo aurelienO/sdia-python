@@ -1,6 +1,6 @@
 import numpy as np
 
-from lab2.utils import get_random_number_generator
+from sdia_python.lab2.utils import get_random_number_generator
 
 
 class BallWindow:
@@ -97,8 +97,7 @@ class BallWindow:
             # * iterate over self.center
             for i in range(0, self.dimension()):
                 c = rng.uniform(
-                    self.center[i] - self.radius,
-                    self.center[i] + self.radius,
+                    self.center[i] - self.radius, self.center[i] + self.radius,
                 )
                 pointk[i] = c
             points.append(pointk)

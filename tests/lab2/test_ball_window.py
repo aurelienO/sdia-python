@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from lab2.ball_window import BallWindow
+from sdia_python.lab2.ball_window import BallWindow
 
 
 @pytest.mark.parametrize(

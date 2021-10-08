@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from lab2.box_window import BoxWindow, UnitBoxWindow
+from sdia_python.lab2.box_window import BoxWindow, UnitBoxWindow
 
 
 def test_raise_assertion_error_when_points_is_not_an_array():
