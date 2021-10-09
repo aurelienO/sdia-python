@@ -131,26 +131,26 @@ def test_rand_multiplepoint_3dimension():
 
 
 @pytest.mark.parametrize(
-    "dimension, expected",
+    "center, expected",
     [
-        (1, "BoxWindow: [-0.5, 0.5]"),
-        (2, "BoxWindow: [-0.5, 0.5] x [-0.5, 0.5]"),
-        (3, "BoxWindow: [-0.5, 0.5] x [-0.5, 0.5] x [-0.5, 0.5]",),
+        (np.array([0]), "BoxWindow: [-0.5, 0.5]"),
+        (np.array([0, 0]), "BoxWindow: [-0.5, 0.5] x [-0.5, 0.5]"),
+        (np.array([0, 0, 0]), "BoxWindow: [-0.5, 0.5] x [-0.5, 0.5] x [-0.5, 0.5]",),
     ],
 )
-def test_UnitBoxWindow(dimension, expected):
-    unitBox = UnitBoxWindow(dimension)
+def test_UnitBoxWindow(center, expected):
+    unitBox = UnitBoxWindow(center)
     assert unitBox.__str__() == expected
 
 
 @pytest.mark.parametrize(
-    "dimension, center, expected", [(1, np.array([2.5]), "BoxWindow: [2.0, 3.0]"),],
+    "center, expected", [(np.array([2.5]), "BoxWindow: [2.0, 3.0]"),],
 )
-def test_UnitBoxWindow_with_center_specified(dimension, center, expected):
-    unitBox = UnitBoxWindow(dimension, center)
+def test_UnitBoxWindow_with_center_specified(center, expected):
+    unitBox = UnitBoxWindow(center)
     assert unitBox.__str__() == expected
 
 
 def test_UnitBoxWindow_volume():
-    unitBox = UnitBoxWindow(3)
+    unitBox = UnitBoxWindow(np.array([0, 0, 0]))
     assert unitBox.volume() == 1
