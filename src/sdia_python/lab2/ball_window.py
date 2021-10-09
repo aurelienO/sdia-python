@@ -16,17 +16,6 @@ class BallWindow:
         self.center = center
         self.radius = radius
 
-    # ? what is this method used for
-    # ! __radius__ is not a conventional magic method
-    # ! radius is already an attribute -> self.radius
-    def __radius__(self):
-        """Returns the radius of the ball.
-
-        Returns:
-            float: the radius of the ball
-        """
-        return self.radius
-
     def __contains__(self, point):
         """Return True if the ball contains the point given in argument.
 
