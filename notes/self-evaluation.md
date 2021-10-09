@@ -14,8 +14,8 @@ Happy reviewing.
 
 ## Your duo
 
-- name1-name2
-- link to repository
+- Orgiazzi-Cohen
+- <https://github.com/aurelienO/sdia-python>
 
 ### Code 0/5
 

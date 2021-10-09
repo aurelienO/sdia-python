@@ -14,7 +14,6 @@ class BoxWindow:
                                 It must be of dimension N * 2
         """
         assert isinstance(bounds, np.ndarray)
-        # * use .shapes -- ndim : nombre de dimensions
         if bounds.shape[1] != 2:
             raise Exception("The dimension is not correct")
         if not np.all(np.diff(bounds) >= 0):
@@ -80,7 +79,7 @@ class BoxWindow:
         """
         return np.prod(np.diff(self.bounds))
 
-    def indicator_function(self, point):
+    def indicator_function(self, points):
         """Returns True if the point beyonds to the box
 
         Args:
@@ -90,7 +89,7 @@ class BoxWindow:
             boolean: True if the point beyonds to the box
         """
         # ? how would you handle multiple points
-        return point in self
+        return self.__contains__(points)
 
     def rand(self, n=1, rng=None):
         """Generate n points uniformly at random inside the BoxWindow.
