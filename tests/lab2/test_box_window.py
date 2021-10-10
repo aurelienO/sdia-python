@@ -1,3 +1,4 @@
+from os import error
 import numpy as np
 import pytest
 
@@ -79,6 +80,14 @@ def test_contains_function_box_2d(box_2d_05, point, expected):
 # ================================
 
 
+def test_raise_error_when_dimension_didnot_match_with_point():
+    with pytest.raises(AssertionError):
+        L = np.array([[1, 2], [3, 4]])
+        box = BoxWindow(L)
+        box.__contains__(np.array([0.5, 3.5, 2.5]))
+        raise AssertionError
+
+
 @pytest.mark.parametrize(
     "box, expected",
     [
@@ -130,6 +139,13 @@ def test_rand_multiplepoint_3dimension():
         assert box.__contains__(value)
 
 
+def test_raise_error_when_center_is_not_an_array():
+    with pytest.raises(AssertionError):
+        center = [1, 2, 3]
+        box = UnitBoxWindow(center)
+        raise AssertionError
+
+
 @pytest.mark.parametrize(
     "center, expected",
     [
@@ -144,13 +160,26 @@ def test_UnitBoxWindow(center, expected):
 
 
 @pytest.mark.parametrize(
-    "center, expected", [(np.array([2.5]), "BoxWindow: [2.0, 3.0]"),],
+    "center, expected",
+    [
+        (np.array([2.5]), "BoxWindow: [2.0, 3.0]"),
+        (np.array([1.5, 4]), "BoxWindow: [1.0, 2.0] x [3.5, 4.5]"),
+        (np.array([2.5, 8, -4.5]), "BoxWindow: [2.0, 3.0] x [7.5, 8.5] x [-5.0, -4.0]"),
+    ],
 )
 def test_UnitBoxWindow_with_center_specified(center, expected):
     unitBox = UnitBoxWindow(center)
     assert unitBox.__str__() == expected
 
 
-def test_UnitBoxWindow_volume():
-    unitBox = UnitBoxWindow(np.array([0, 0, 0]))
+@pytest.mark.parametrize(
+    "center", [(np.array([2.5])), (np.array([1.5, 4])), (np.array([2.5, 8, -4.5])),],
+)
+def test_UnitBoxWindow_volume_is_equal_to_one(center):
+    unitBox = UnitBoxWindow(center)
     assert unitBox.volume() == 1
+
+
+# def test_UnitBoxWindow_volume_is_equal_to_one():
+#    unitBox = UnitBoxWindow(np.array([0, 0, 0]))
+#    assert unitBox.volume() == 1
