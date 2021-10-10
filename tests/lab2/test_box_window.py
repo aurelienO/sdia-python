@@ -178,8 +178,3 @@ def test_UnitBoxWindow_with_center_specified(center, expected):
 def test_UnitBoxWindow_volume_is_equal_to_one(center):
     unitBox = UnitBoxWindow(center)
     assert unitBox.volume() == 1
-
-
-# def test_UnitBoxWindow_volume_is_equal_to_one():
-#    unitBox = UnitBoxWindow(np.array([0, 0, 0]))
-#    assert unitBox.volume() == 1
