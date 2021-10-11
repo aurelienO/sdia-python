@@ -22,6 +22,17 @@ class BallWindow:
         self.center = center
         self.radius = radius
 
+    def __str__(self):
+
+        """Returns for example the following string :
+        "BallWindow: [a_1, b_1] x [a_2, b_2]"
+
+        Returns:
+            str: The representation of the box Window
+        """
+
+        return f"BallWindow: center = {list(self.center)}, radius = {self.radius}"
+
     def __contains__(self, point):
 
         """Return True if the ball contains the point given in argument.
@@ -33,14 +44,7 @@ class BallWindow:
             boolean: True if the ball contains the point given in argument
         """
         assert len(point) == len(self.center)
-        # * exploit numpy vectorization power
-        # ? how about np.linalg.norm
-        for k in range(0, len(point)):
-            if not (
-                self.center[k] - self.radius <= point[k] <= self.center[k] + self.radius
-            ):
-                return False
-        return True
+        return np.linalg.norm(self.center - point) <= self.radius
 
     def dimension(self):
         """Returns the dimension of the ball.
