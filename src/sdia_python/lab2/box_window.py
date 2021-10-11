@@ -105,6 +105,16 @@ class BoxWindow:
 
         return self.__contains__(points)
 
+    def center(self):
+
+        """Return the array with the coordinates of the center of the box.
+
+        Returns:
+            numpy array: The array with the coordinates of the center of the box.
+        """
+
+        return np.sum(self.bounds, axis=1) / 2
+
     def rand(self, n=1, rng=None):
 
         """Generate n points uniformly at random inside the BoxWindow.
