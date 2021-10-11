@@ -103,3 +103,8 @@ class BallWindow:
             points.append(pointk)
         return points
         # ? are you sure points are uniformly distributed
+
+
+class UnitBallWindow:
+    def __init__(self, center):
+        super().__init__(center, 1)
