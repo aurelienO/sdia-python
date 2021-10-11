@@ -153,5 +153,4 @@ class UnitBoxWindow(BoxWindow):
 
         assert isinstance(center, np.ndarray)
         bounds = np.add.outer(center, [-0.5, 0.5])
-        # * Nice use of super()
         super().__init__(bounds)
