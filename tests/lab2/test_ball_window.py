@@ -2,6 +2,7 @@ import numpy as np
 import pytest
 
 from sdia_python.lab2.ball_window import BallWindow
+from sdia_python.lab2.box_window import BoxWindow
 
 
 def test_raise_assertion_error_when_center_is_not_an_array():
@@ -22,15 +23,14 @@ def test_raise_Exception_when_radius_is_negative():
 @pytest.mark.parametrize(
     "center, radius, expected",
     [
-        (np.array([0]), 4, 4),
-        (np.array([2.5, 2.5]), 3.7, 3.7),
-        (np.array([-1, 5]), 2.0, 2.0),
-        (np.array([10, 3]), 20000, 20000),
+        (np.array([0]), 4, "BallWindow: center = [0], radius = 4"),
+        (np.array([2.5, 2.5]), 3.7, "BallWindow: center = [2.5, 2.5], radius = 3.7"),
+        (np.array([-1, 5]), 8.0, "BallWindow: center = [-1, 5], radius = 8.0"),
     ],
 )
-def test_radius(center, radius, expected):
+def test_str(center, radius, expected):
     ball = BallWindow(center, radius)
-    assert ball.radius == expected
+    assert ball.__str__() == expected
 
 
 @pytest.mark.parametrize(
@@ -57,18 +57,21 @@ def test_volume_box(ball, radius, expected):
     assert ball.volume() == expected
 
 
-def test_contains_oneDimension():
-    ball1 = BallWindow(np.array([1]), 3)
-    ball2 = BallWindow(np.array([3.5]), 0.5)
-    ball3 = BallWindow(np.array([-2.5]), 1.5)
-    ball4 = BallWindow(np.array([0]), 2)
-    assert ball1.__contains__(np.array([2]))
-    assert not ball1.__contains__(np.array([5]))
-    assert ball2.__contains__(np.array([4]))
-    assert not ball2.__contains__(np.array([4.01]))
-    assert ball3.__contains__(np.array([-3.9]))
-    assert ball4.__contains__(np.array([0]))
-    assert not ball4.__contains__(np.array([2.02]))
+@pytest.mark.parametrize(
+    "center, radius, point, expected",
+    [
+        (np.array([1]), 3, np.array([2]), True),
+        (np.array([1]), 3, np.array([5]), False),
+        (np.array([3.5]), 0.5, np.array([4]), True),
+        (np.array([3.5]), 0.5, np.array([4.01]), False),
+        (np.array([-2.5]), 1.5, np.array([-3.9]), True),
+        (np.array([-2.5]), 1.5, np.array([0]), False),
+        (np.array([0]), 2, np.array([0]), True),
+        (np.array([0]), 2, np.array([2.02]), False),
+    ],
+)
+def test_contains_oneDimension(center, radius, point, expected):
+    assert BallWindow(center, radius).__contains__(point) == expected
 
 
 def test_contains_twoDimension():
