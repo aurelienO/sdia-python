@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.lib.twodim_base import triu_indices_from
 import pytest
 
 from sdia_python.lab2.ball_window import BallWindow
@@ -74,34 +75,47 @@ def test_contains_oneDimension(center, radius, point, expected):
     assert BallWindow(center, radius).__contains__(point) == expected
 
 
-def test_contains_twoDimension():
-    ball1 = BallWindow(np.array([0, 0]), 1)
-    ball2 = BallWindow(np.array([3.5, 2.5]), 0.5)
-    assert ball1.__contains__(np.array([0.5, 0.5]))
-    assert not ball1.__contains__(np.array([1, 2]))
-    assert ball2.__contains__(np.array([3.25, 2.75]))
+@pytest.mark.parametrize(
+    "center, radius, point, expected",
+    [
+        (np.array([0, 0]), 1, np.array([0.5, 0.5]), True),
+        (np.array([0, 0]), 1, np.array([1, 2]), False),
+        (np.array([3.5, 2.5]), 0.25, np.array([3.25, 2.75]), False),
+        (np.array([3.5, 2.5]), 0.5, np.array([3.5, 2.75]), True),
+    ],
+)
+def test_contains_twoDimension(center, radius, point, expected):
+    assert BallWindow(center, radius).__contains__(point) == expected
 
 
-def test_indicator_function_oneDimension():
-    ball1 = BallWindow(np.array([1]), 3)
-    ball2 = BallWindow(np.array([3.5]), 0.5)
-    ball3 = BallWindow(np.array([-2.5]), 1.5)
-    ball4 = BallWindow(np.array([0]), 2)
-    assert ball1.indicator_function(np.array([2]))
-    assert not ball1.indicator_function(np.array([5]))
-    assert ball2.indicator_function(np.array([4]))
-    assert not ball2.indicator_function(np.array([4.01]))
-    assert ball3.indicator_function(np.array([-3.9]))
-    assert ball4.indicator_function(np.array([0]))
-    assert not ball4.indicator_function(np.array([2.02]))
+@pytest.mark.parametrize(
+    "center, radius, point, expected",
+    [
+        (np.array([1]), 3, np.array([2]), True),
+        (np.array([1]), 3, np.array([5]), False),
+        (np.array([3.5]), 0.5, np.array([4]), True),
+        (np.array([3.5]), 0.5, np.array([4.01]), False),
+        (np.array([-2.5]), 1.5, np.array([-3.9]), True),
+        (np.array([-2.5]), 1.5, np.array([0]), False),
+        (np.array([0]), 2, np.array([0]), True),
+        (np.array([0]), 2, np.array([2.02]), False),
+    ],
+)
+def test_indicator_function_oneDimension(center, radius, point, expected):
+    assert BallWindow(center, radius).indicator_function(point) == expected
 
 
-def test_indicator_function_twoDimension():
-    ball1 = BallWindow(np.array([0, 0]), 1)
-    ball2 = BallWindow(np.array([3.5, 2.5]), 0.5)
-    assert ball1.indicator_function(np.array([0.5, 0.5]))
-    assert not ball1.indicator_function(np.array([1, 2]))
-    assert ball2.indicator_function(np.array([3.25, 2.75]))
+@pytest.mark.parametrize(
+    "center, radius, point, expected",
+    [
+        (np.array([0, 0]), 1, np.array([0.5, 0.5]), True),
+        (np.array([0, 0]), 1, np.array([1, 2]), False),
+        (np.array([3.5, 2.5]), 0.25, np.array([3.25, 2.75]), False),
+        (np.array([3.5, 2.5]), 0.5, np.array([3.5, 2.75]), True),
+    ],
+)
+def test_indicator_function_twoDimension(center, radius, point, expected):
+    assert BallWindow(center, radius).indicator_function(point) == expected
 
 
 # ? does this raise a TypeError or an AssertionError
