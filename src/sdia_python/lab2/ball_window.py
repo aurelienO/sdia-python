@@ -7,7 +7,7 @@ class BallWindow:
 
     """This class represents a ball according to the norm 1 of any dimension"""
 
-    def __init__(self, center, radius):
+    def __init__(self, center, radius=1):
 
         """Constructor of the class : build a ball whose dimension is given by the size of the center array and the radius by the float radius.
 

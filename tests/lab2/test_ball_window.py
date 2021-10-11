@@ -4,6 +4,21 @@ import pytest
 from sdia_python.lab2.ball_window import BallWindow
 
 
+def test_raise_assertion_error_when_center_is_not_an_array():
+    with pytest.raises(AssertionError):
+        # call_something_that_raises_TypeError()
+        L = [1, 2]
+        ball = BallWindow(L)
+        raise AssertionError()
+
+
+def test_raise_Exception_when_radius_is_negative():
+    with pytest.raises(Exception):
+        L = np.array([3, 4])
+        ball = BallWindow(L, 2)
+        raise Exception
+
+
 @pytest.mark.parametrize(
     "center, radius, expected",
     [
