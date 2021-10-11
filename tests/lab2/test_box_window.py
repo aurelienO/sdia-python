@@ -127,6 +127,22 @@ def test_volume_box(box, expected):
     assert BoxWindow(box).volume() == expected
 
 
+@pytest.mark.parametrize(
+    "box, expected",
+    [
+        (np.array([[1, 2]]), np.array([1.5])),
+        (np.array([[1, 3], [3, 5]]), np.array([2, 4])),
+        (np.array([[1, 2], [3, 4], [5, 7]]), np.array([1.5, 3.5, 6.0])),
+        (
+            np.array([[1, 2], [3, 5], [5, 9], [1, 2], [3, 5], [5, 6]]),
+            np.array([1.5, 4.0, 7.0, 1.5, 4.0, 5.5]),
+        ),
+    ],
+)
+def test_center_box(box, expected):
+    assert np.array_equal(BoxWindow(box).center(), expected)
+
+
 def test_rand_onepoint_onedimension():
     box = BoxWindow(np.array([[1, 2]]))
     assert box.__contains__(box.rand()[0])
