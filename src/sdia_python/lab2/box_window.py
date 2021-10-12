@@ -33,20 +33,9 @@ class BoxWindow:
         """
 
         s = "BoxWindow: "
-        # ! use f-strings
-        if self.dimension() > 1:
-            # * consider for a, b in self.bounds[:-1]
-            for a, b in self.bounds[:-1]:
-                # * use += opereator
-                s += "[" + str(a) + ", " + str(b) + "]" + " x "
-        s += (
-            "["
-            + str(self.bounds[len(self.bounds) - 1][0])
-            + ", "
-            + str(self.bounds[len(self.bounds) - 1][1])
-            + "]"
-        )
-        return s
+        bounds_list = [f"{list(e)}" for e in self.bounds]
+        sep = " x "
+        return s + sep.join(bounds_list)
 
     def __len__(self):
 
