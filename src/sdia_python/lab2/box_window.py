@@ -25,7 +25,7 @@ class BoxWindow:
 
     def __str__(self):
 
-        """Returns for example the following string :
+        """Returns the representation of a box, for example the following string :
         "BoxWindow: [a_1, b_1] x [a_2, b_2]"
 
         Returns:
@@ -83,13 +83,13 @@ class BoxWindow:
 
     def indicator_function(self, points):
 
-        """Returns True if the point beyonds to the box
+        """Returns True if the point belongs to the box
 
         Args:
             point (numpy.array): the point
 
         Returns:
-            boolean: True if the point beyonds to the box
+            boolean: True if the point belongs to the box
         """
 
         return self.__contains__(points)
@@ -117,13 +117,7 @@ class BoxWindow:
         """
 
         rng = get_random_number_generator(rng)
-        points = []
-        for k in range(0, n):
-            pointk = np.zeros(len(self.bounds))
-            for i in range(0, len(self.bounds)):
-                c = rng.uniform(self.bounds[i][0], self.bounds[i][1])
-                pointk[i] = c
-            points.append(pointk)
+        points = (rng.uniform(a, b, n) for (a, b) in self.bounds)
         return points
 
 

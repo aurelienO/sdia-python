@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.core.defchararray import _center_dispatcher
 from numpy.lib.twodim_base import triu_indices_from
 import pytest
 
@@ -46,15 +47,15 @@ def test_dimension_box(box, expected):
 # ? ball or center
 # ! tests pass but on a wrong implementation
 @pytest.mark.parametrize(
-    "ball, radius, expected",
+    "center, radius, expected",
     [
         (np.array([1]), 2, 4),
-        (np.array([1, 3]), 3, 36),
-        (np.array([1.4, 2.6, 3.9]), 2.5, 125.0),
+        (np.array([1, 3]), 2.5, np.pi * 2.5 ** 2),
+        (np.array([1.4, 2.6, 3.9]), 3.12, (4 / 3) * np.pi * 3.12 ** 3),
     ],
 )
-def test_volume_box(ball, radius, expected):
-    ball = BallWindow(ball, radius)
+def test_volume_box(center, radius, expected):
+    ball = BallWindow(center, radius)
     assert ball.volume() == expected
 
 

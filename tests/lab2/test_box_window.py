@@ -145,7 +145,7 @@ def test_center_box(box, expected):
 
 def test_rand_onepoint_onedimension():
     box = BoxWindow(np.array([[1, 2]]))
-    assert box.__contains__(box.rand()[0])
+    assert box.__contains__(box.rand())
 
 
 def test_rand_multiplepoint_3dimension():

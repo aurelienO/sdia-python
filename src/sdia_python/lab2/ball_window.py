@@ -61,9 +61,13 @@ class BallWindow:
             float: Returns the volume of the box
         """
         # todo rewrite the method
-        # ! the volume (area) of a disk = pi r^2
-        # ? is this tested
-        return (2 * self.radius) ** self.dimension()
+        n = self.dimension()
+        if n == 1:
+            print(2 * self.radius)
+            return 2 * self.radius
+        if n == 2:
+            return np.pi * self.radius ** 2
+        return (4 / 3) * np.pi * self.radius ** 3
 
     def indicator_function(self, point):
         """Return True if the ball contains the point given in argument.
