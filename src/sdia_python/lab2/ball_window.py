@@ -10,12 +10,14 @@ class BallWindow:
         """Constructor of the class : build a ball whose dimension is given by the size of the center array and the radius by the float radius.
 
         Args:
-            center (numpy.array): an array containing the coordinates of the center.
+            center (numpy.array): an array containing the coordinates of the center. It must be of length <= 3.
             radius (float): the radius of the ball.
         """
         assert isinstance(center, np.ndarray)
         if radius < 0:
             raise Exception("radius must be positive")
+        if len(center) > 3:
+            raise Exception("Dimension is too high")
         self.center = center
         self.radius = radius
 

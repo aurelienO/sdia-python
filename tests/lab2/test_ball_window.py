@@ -18,6 +18,13 @@ def test_raise_assertion_error_when_center_is_not_an_array():
 def test_raise_Exception_when_radius_is_negative():
     with pytest.raises(Exception):
         L = np.array([3, 4])
+        ball = BallWindow(L, -2)
+        raise Exception
+
+
+def test_raise_Exception_when_dimension_is_to_high():
+    with pytest.raises(Exception):
+        L = np.array([3, 4, 5, 6])
         ball = BallWindow(L, 2)
         raise Exception
 
@@ -117,7 +124,6 @@ def test_indicator_function_twoDimension(center, radius, point, expected):
     assert BallWindow(center, radius).indicator_function(point) == expected
 
 
-# ? does this raise a TypeError or an AssertionError
 def test_raise_assertion_error_when_points_is_not_of_good_dimension():
     with pytest.raises(AssertionError):
         ball1 = BallWindow(np.array([0, 0]), 1)
