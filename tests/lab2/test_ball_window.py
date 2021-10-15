@@ -44,8 +44,6 @@ def test_dimension_box(box, expected):
     assert ball.dimension() == expected
 
 
-# ? ball or center
-# ! tests pass but on a wrong implementation
 @pytest.mark.parametrize(
     "center, radius, expected",
     [
