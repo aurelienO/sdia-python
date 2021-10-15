@@ -56,7 +56,6 @@ class BallWindow:
         """
         n = self.dimension()
         if n == 1:
-            print(2 * self.radius)
             return 2 * self.radius
         if n == 2:
             return np.pi * self.radius ** 2
@@ -107,4 +106,9 @@ class UnitBallWindow:
     """
 
     def __init__(self, center):
+        """Return a BallWindow where the radius is equal to one.
+
+        Args:
+            center (numpy.array): an array containing the coordinates of the center.
+        """
         super().__init__(center, 1)
