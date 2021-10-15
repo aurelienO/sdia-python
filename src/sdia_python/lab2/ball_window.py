@@ -4,18 +4,15 @@ from sdia_python.lab2.utils import get_random_number_generator
 
 
 class BallWindow:
-
     """This class represents a ball according to the norm 1 of any dimension"""
 
     def __init__(self, center, radius=1):
-
         """Constructor of the class : build a ball whose dimension is given by the size of the center array and the radius by the float radius.
 
         Args:
             center (numpy.array): an array containing the coordinates of the center.
             radius (float): the radius of the ball.
         """
-
         assert isinstance(center, np.ndarray)
         if radius < 0:
             raise Exception("radius must be positive")
@@ -23,18 +20,15 @@ class BallWindow:
         self.radius = radius
 
     def __str__(self):
-
         """Returns for example the following string :
         "BallWindow: [a_1, b_1] x [a_2, b_2]"
 
         Returns:
             str: The representation of the box Window
         """
-
         return f"BallWindow: center = {list(self.center)}, radius = {self.radius}"
 
     def __contains__(self, point):
-
         """Return True if the ball contains the point given in argument.
 
         Args:
@@ -60,7 +54,6 @@ class BallWindow:
         Returns:
             float: Returns the volume of the box
         """
-        # todo rewrite the method
         n = self.dimension()
         if n == 1:
             print(2 * self.radius)
@@ -110,5 +103,8 @@ class BallWindow:
 
 
 class UnitBallWindow:
+    """Represent a BallWindow where the radius has a size of one.
+    """
+
     def __init__(self, center):
         super().__init__(center, 1)
