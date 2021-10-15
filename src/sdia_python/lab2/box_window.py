@@ -98,7 +98,10 @@ class BoxWindow:
             A list of n points generated uniformly at random inside the BoxWindow.
         """
         rng = get_random_number_generator(rng)
-        points = (rng.uniform(a, b, n) for (a, b) in self.bounds)
+        # points = (rng.uniform(a, b, n) for (a, b) in self.bounds)
+        points = np.array(
+            [[rng.uniform(a, b) for a, b in self.bounds] for i in range(n)]
+        )
         return points
 
 

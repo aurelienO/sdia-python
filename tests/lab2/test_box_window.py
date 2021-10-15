@@ -143,9 +143,18 @@ def test_center_box(box, expected):
     assert np.array_equal(BoxWindow(box).center(), expected)
 
 
-def test_rand_onepoint_onedimension():
-    box = BoxWindow(np.array([[1, 2]]))
-    assert box.__contains__(box.rand())
+@pytest.mark.parametrize(
+    "bounds",
+    [
+        (np.array([[1, 2]])),
+        (np.array([[1, 3], [3, 5]])),
+        (np.array([[1, 2], [3, 4], [5, 7]])),
+        (np.array([[1, 2], [3, 5], [5, 9], [1, 2], [3, 5], [5, 6]])),
+    ],
+)
+def test_rand_onepoint(bounds):
+    box = BoxWindow(bounds)
+    assert box.__contains__(box.rand()[0])
 
 
 def test_rand_multiplepoint_3dimension():
