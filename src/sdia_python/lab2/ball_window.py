@@ -75,31 +75,31 @@ class BallWindow:
         # ? how would you handle multiple points
         return self.__contains__(point)
 
-    def rand(self, numberOfPoints=1, rng=None):
+    def rand(self, n=1, rng=None):
         """Generate n points uniformly at random inside the BallWindow.
 
         Args:
-            numberOfPoints (int, optional): Number of points. Defaults to 1.
+            n (int, optional): Number of points. Defaults to 1.
             rng ((numpy.random._generator.Generator, optional): Random number generator. Defaults to None.
 
         Returns:
             list: A list of n points generated uniformly at random inside the BallWindow.
         """
         rng = get_random_number_generator(rng)
-        points = []
-        # ! naming: snake case for variables number_of_points
-        # ! readability
-        # * exploit numpy, rng.uniform(a, b, size=n)
-        for k in range(0, numberOfPoints):
-            pointk = np.zeros([self.dimension()])
-            # * iterate over self.center
-            for i in range(0, self.dimension()):
-                c = rng.uniform(
-                    self.center[i] - self.radius, self.center[i] + self.radius,
-                )
-                pointk[i] = c
-            points.append(pointk)
-        return points
+        d = self.dimension()
+        if d == 1:
+            points = rng.uniform(
+                self.center[0] - self.radius, self.center[0] + self.radius, size=n
+            )
+            return points
+        if d == 2:
+            points = np.zeros((n, 2))
+            r = np.sqrt(rng.uniform(0, self.radius, size=n))
+            theta = rng.uniform(0, 2 * np.pi, size=n)
+            points[:, 0] = r * np.cos(theta) + self.center[0]
+            points[:, 1] = r * np.sin(theta) + self.center[1]
+            return points
+
         # ? are you sure points are uniformly distributed
 
 

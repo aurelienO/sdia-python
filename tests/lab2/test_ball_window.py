@@ -143,13 +143,20 @@ def test_raise_assertion_error_when_points_is_not_of_good_dimension():
         np.array([1, 2, 3]) in ball1
 
 
-# def test_rand_onepoint_onedimension():
-#    ball = BallWindow(np.array([1, 2]), 3)
-#   assert ball.__contains__(ball.rand()[0])
+def test_rand_one_point_one_dimension():
+    ball = BallWindow(np.array([1]), 3)
+    for k in range(0, 100):
+        assert ball.__contains__(ball.rand())
 
 
-# def test_rand_multiplepoint_3dimension():
-#    ball = BallWindow(np.array([1, 15.5, 3.5]), 2)
-#    coord = ball.rand(100)
-#    for value in coord:
-#        assert ball.__contains__(value)
+def test_rand_multiple_points_one_dimension():
+    ball = BallWindow(np.array([15.5]), 2)
+    coord = ball.rand(100)
+    for value in coord:
+        assert ball.__contains__(np.array([value]))
+
+
+def test_rand_one_point_two_dimensions():
+    ball = BallWindow(np.array([1, 2]), 3)
+    for k in range(0, 100):
+        assert ball.__contains__(ball.rand()[0])
