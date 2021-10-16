@@ -15,9 +15,9 @@ class BoxWindow:
         """
         assert isinstance(bounds, np.ndarray)
         if bounds.shape[1] != 2:
-            raise Exception("The dimension is not correct")
+            raise Exception("The dimension of the argument bounds is not correct")
         if not np.all(np.diff(bounds) >= 0):
-            raise Exception("The bounds are not correct")
+            raise Exception("The bounds are not in the right order")
         self.bounds = bounds
 
     def __str__(self):
