@@ -90,7 +90,20 @@ def test_contains_oneDimension(center, radius, point, expected):
         (np.array([3.5, 2.5]), 0.5, np.array([3.5, 2.75]), True),
     ],
 )
-def test_contains_twoDimension(center, radius, point, expected):
+def test_contains_two_dimensions(center, radius, point, expected):
+    assert BallWindow(center, radius).__contains__(point) == expected
+
+
+@pytest.mark.parametrize(
+    "center, radius, point, expected",
+    [
+        (np.array([0, 0, 0]), 1, np.array([0.5, 0.5, 0.5]), True),
+        (np.array([0, 0, 0]), 1, np.array([1, 2, 3]), False),
+        (np.array([3.5, 2.5, 1.25]), 0.25, np.array([3.25, 2.75, 1.5]), False),
+        (np.array([3.5, 2.5, 1.25]), 0.5, np.array([3.5, 2.75, 1.0]), True),
+    ],
+)
+def test_contains_three_dimension(center, radius, point, expected):
     assert BallWindow(center, radius).__contains__(point) == expected
 
 
