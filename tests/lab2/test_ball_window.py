@@ -3,8 +3,8 @@ from numpy.core.defchararray import _center_dispatcher
 from numpy.lib.twodim_base import triu_indices_from
 import pytest
 
-from sdia_python.lab2.ball_window import BallWindow
-from sdia_python.lab2.box_window import BoxWindow
+from sdia_python.lab2.ball_window import BallWindow, UnitBallWindow
+from sdia_python.lab2.box_window import BoxWindow, UnitBoxWindow
 
 
 def test_raise_assertion_error_when_center_is_not_an_array():
@@ -198,3 +198,13 @@ def test_rand_multiple_points_three_dimension(center, radius):
     coord = ball.rand(100)
     for value in coord:
         assert ball.__contains__(value)
+
+
+def test_unit_ball_window_3D_volume():
+    ball = UnitBallWindow(np.array([0, 0, 0]))
+    assert ball.volume() == 4 / 3 * np.pi
+
+
+def test_unit_ball_window_2D_volume():
+    ball = UnitBallWindow(np.array([0, 0]))
+    assert ball.volume() == np.pi

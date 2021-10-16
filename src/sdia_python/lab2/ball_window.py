@@ -110,7 +110,7 @@ class BallWindow:
         # ? are you sure points are uniformly distributed
 
 
-class UnitBallWindow:
+class UnitBallWindow(BallWindow):
     """Represent a BallWindow where the radius has a size of one.
     """
 
@@ -120,4 +120,5 @@ class UnitBallWindow:
         Args:
             center (numpy.array): an array containing the coordinates of the center.
         """
-        super().__init__(center, 1)
+        assert isinstance(center, np.ndarray)
+        super().__init__(center)
