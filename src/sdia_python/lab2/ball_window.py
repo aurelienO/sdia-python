@@ -4,13 +4,13 @@ from sdia_python.lab2.utils import get_random_number_generator
 
 
 class BallWindow:
-    """This class represents a ball according to the norm 1 of any dimension"""
+    """This class represents a ball of dimension one, two or three"""
 
     def __init__(self, center, radius=1):
         """Constructor of the class : build a ball whose dimension is given by the size of the center array and the radius by the float radius.
 
         Args:
-            center (numpy.array): an array containing the coordinates of the center. It must be of length <= 3.
+            center (numpy.array): an array containing the coordinates of the    center. It must be of length <= 3.
             radius (float): the radius of the ball.
         """
         assert isinstance(center, np.ndarray)
@@ -40,7 +40,7 @@ class BallWindow:
             boolean: True if the ball contains the point given in argument
         """
         assert len(point) == len(self.center)
-        return np.linalg.norm(self.center - point) <= self.radius
+        return np.all(np.linalg.norm(self.center - point) <= self.radius)
 
     def dimension(self):
         """Returns the dimension of the ball.
@@ -107,7 +107,6 @@ class BallWindow:
         points[:, 1] = r * np.sin(theta) * np.sin(phi) + self.center[1]
         points[:, 2] = r * np.cos(phi) + self.center[2]
         return points
-        # ? are you sure points are uniformly distributed
 
 
 class UnitBallWindow(BallWindow):
