@@ -94,12 +94,19 @@ class BallWindow:
             return points
         if d == 2:
             points = np.zeros((n, 2))
-            r = np.sqrt(rng.uniform(0, self.radius, size=n))
+            r = np.sqrt(rng.uniform(0, 1, size=n)) * self.radius
             theta = rng.uniform(0, 2 * np.pi, size=n)
             points[:, 0] = r * np.cos(theta) + self.center[0]
             points[:, 1] = r * np.sin(theta) + self.center[1]
             return points
-
+        points = np.zeros((n, 3))
+        r = np.cbrt(rng.uniform(0, 1, size=n)) * self.radius
+        theta = rng.uniform(0, 2 * np.pi, size=n)
+        phi = rng.uniform(0, np.pi, size=n)
+        points[:, 0] = r * np.cos(theta) * np.sin(phi) + self.center[0]
+        points[:, 1] = r * np.sin(theta) * np.sin(phi) + self.center[1]
+        points[:, 2] = r * np.cos(phi) + self.center[2]
+        return points
         # ? are you sure points are uniformly distributed
 
 

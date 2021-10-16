@@ -160,3 +160,41 @@ def test_rand_one_point_two_dimensions():
     ball = BallWindow(np.array([1, 2]), 3)
     for k in range(0, 100):
         assert ball.__contains__(ball.rand()[0])
+
+
+def test_rand_multiple_points_two_dimension():
+    ball = BallWindow(np.array([15.5, 17]), 2)
+    coord = ball.rand(100)
+    for value in coord:
+        assert ball.__contains__(value)
+
+
+@pytest.mark.parametrize(
+    "center, radius",
+    [
+        (np.array([0, 0, 0]), 1),
+        (np.array([1, 2, 3]), 5),
+        (np.array([3.5, 2.5, 2.3]), 0.75),
+        (np.array([-3.5, 2.5, -1]), 6.5),
+    ],
+)
+def test_rand_one_point_three_dimensions(center, radius):
+    ball = BallWindow(center, radius)
+    for k in range(0, 100):
+        assert ball.__contains__(ball.rand()[0])
+
+
+@pytest.mark.parametrize(
+    "center, radius",
+    [
+        (np.array([0, 0, 0]), 1),
+        (np.array([1, 2, 3]), 5),
+        (np.array([3.5, 2.5, 2.3]), 0.75),
+        (np.array([-3.5, 2.5, -1]), 6.5),
+    ],
+)
+def test_rand_multiple_points_three_dimension(center, radius):
+    ball = BallWindow(center, radius)
+    coord = ball.rand(100)
+    for value in coord:
+        assert ball.__contains__(value)
