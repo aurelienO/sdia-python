@@ -10,6 +10,9 @@ BoxWindow
     :inherited-members:
     :show-inheritance:
 
+BallWindow
+=========
+
 .. automodule:: sdia_python.lab2.ball_window
     :members:
     :inherited-members:

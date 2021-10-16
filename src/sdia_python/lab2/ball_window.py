@@ -72,7 +72,6 @@ class BallWindow:
         Returns:
             boolean: True if the ball contains the point given in argument
         """
-        # ? how would you handle multiple points
         return self.__contains__(point)
 
     def rand(self, n=1, rng=None):
